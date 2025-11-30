@@ -139,13 +139,12 @@
 
         const App = () => {
             const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-            const [pseStep, setPseStep] = useState('input'); // 'input' | 'gateway'
 
             const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-            // Simular login
+            // Redirigir al panel de clientes
             const handleClientLogin = () => {
-                alert("Redirigiendo a: panel.latamcloud.com");
+                window.location.href = "https://panel.latam-cloud.online/";
             };
 
             return (
@@ -164,7 +163,7 @@
                                 <div className="hidden md:flex items-center space-x-8">
                                     <a href="#propuesta" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition">Por qué nosotros</a>
                                     <a href="#precios" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition">Precios</a>
-                                    <a href="#pagos" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition">Zona de Pagos</a>
+                                    <a href="#contacto" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition">Contacto</a>
 
                                     <button
                                         onClick={handleClientLogin}
@@ -190,7 +189,7 @@
                                 <div className="px-4 py-4 space-y-3">
                                     <a href="#propuesta" onClick={toggleMenu} className="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 rounded-md">Por qué nosotros</a>
                                     <a href="#precios" onClick={toggleMenu} className="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 rounded-md">Precios</a>
-                                    <a href="#pagos" onClick={toggleMenu} className="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 rounded-md">Zona de Pagos</a>
+                                    <a href="#contacto" onClick={toggleMenu} className="block px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-50 rounded-md">Contacto</a>
                                     <button onClick={handleClientLogin} className="w-full mt-2 flex justify-center items-center gap-2 bg-blue-600 text-white px-3 py-3 rounded-lg font-bold">
                                         <Lock size={18} /> Acceder al Panel
                                     </button>
@@ -332,8 +331,8 @@
                                         <div className="mb-6">
                                             <LatamCloudLogo className="h-10 w-auto mx-auto brightness-0 invert" />
                                         </div>
-                                        <div className="text-7xl font-black text-white mb-2">$44</div>
-                                        <span className="text-cyan-100 text-xl font-semibold block mb-10">USD / mes</span>
+                                        <div className="text-6xl font-black text-white mb-2">desde $30.000</div>
+                                        <span className="text-cyan-100 text-xl font-semibold block mb-10">COP / mes</span>
 
                                         <div className="space-y-4 border-t-2 border-white/30 pt-8 text-left">
                                             <div className="flex items-center gap-3 text-white">
@@ -364,69 +363,111 @@
                             </div>
                         </section>
 
-                        {/* --- PSE PAYMENT SECTION --- */}
-                        <section id="pagos" className="py-28 bg-gradient-to-b from-slate-50 to-white">
+                        {/* --- LEAD CAPTURE FORM --- */}
+                        <section id="contacto" className="py-28 bg-gradient-to-b from-slate-50 to-white">
                             <div className="max-w-3xl mx-auto px-4">
                                 <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-slate-200">
                                     <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-cyan-700 p-8 md:p-10 flex items-center justify-between">
                                         <div>
-                                            <h2 className="text-3xl font-black text-white mb-2">Zona Transaccional</h2>
-                                            <p className="text-cyan-100 text-base font-medium">Paga tus servicios de forma segura</p>
+                                            <h2 className="text-3xl font-black text-white mb-2">Solicita Acceso al Panel</h2>
+                                            <p className="text-cyan-100 text-base font-medium">Completa el formulario y te enviaremos tu invitación</p>
                                         </div>
                                         <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center text-white">
-                                            <CreditCard size={28} />
+                                            <Lock size={28} />
                                         </div>
                                     </div>
 
                                     <div className="p-8 md:p-12">
-                                        {pseStep === 'input' ? (
-                                            <div className="space-y-6 animate-fade-in">
-                                                <div>
-                                                    <label className="block text-sm font-bold text-slate-800 mb-3">Referencia de Pago o NIT</label>
-                                                    <input type="text" className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition text-lg" placeholder="Ej: 900.123.456" />
-                                                </div>
-                                                <button
-                                                    onClick={() => setPseStep('gateway')}
-                                                    className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-5 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-[1.02]"
+                                        <form className="space-y-6" onSubmit={(e) => {
+                                            e.preventDefault();
+                                            alert('¡Gracias por tu interés! Te contactaremos pronto con tu invitación al panel.');
+                                        }}>
+                                            {/* Nombre Completo */}
+                                            <div>
+                                                <label className="block text-sm font-bold text-slate-800 mb-3">Nombre Completo *</label>
+                                                <input
+                                                    type="text"
+                                                    required
+                                                    className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition text-lg"
+                                                    placeholder="Ej: Juan Pérez"
+                                                />
+                                            </div>
+
+                                            {/* Email */}
+                                            <div>
+                                                <label className="block text-sm font-bold text-slate-800 mb-3">Correo Electrónico *</label>
+                                                <input
+                                                    type="email"
+                                                    required
+                                                    className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition text-lg"
+                                                    placeholder="correo@empresa.com"
+                                                />
+                                            </div>
+
+                                            {/* Teléfono */}
+                                            <div>
+                                                <label className="block text-sm font-bold text-slate-800 mb-3">Teléfono / WhatsApp *</label>
+                                                <input
+                                                    type="tel"
+                                                    required
+                                                    className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition text-lg"
+                                                    placeholder="+57 300 123 4567"
+                                                />
+                                            </div>
+
+                                            {/* Empresa */}
+                                            <div>
+                                                <label className="block text-sm font-bold text-slate-800 mb-3">Empresa / Organización</label>
+                                                <input
+                                                    type="text"
+                                                    className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition text-lg"
+                                                    placeholder="Nombre de tu empresa"
+                                                />
+                                            </div>
+
+                                            {/* Servicio de Interés */}
+                                            <div>
+                                                <label className="block text-sm font-bold text-slate-800 mb-3">Servicio de Interés *</label>
+                                                <select
+                                                    required
+                                                    className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition text-lg bg-white"
                                                 >
-                                                    Continuar al Pago <ArrowRight size={20} />
-                                                </button>
-                                                <p className="text-center text-xs text-slate-500 mt-4">
-                                                    Al continuar aceptas nuestros términos y condiciones de pago.
-                                                </p>
+                                                    <option value="">Selecciona una opción</option>
+                                                    <option value="vps">VPS (Servidor Virtual Privado)</option>
+                                                    <option value="storage">Almacenamiento en la Nube</option>
+                                                    <option value="backup">Backup y Recuperación</option>
+                                                    <option value="hosting">Hosting Web</option>
+                                                    <option value="custom">Solución Personalizada</option>
+                                                </select>
                                             </div>
-                                        ) : (
-                                            <div className="animate-fade-in text-center">
-                                                <div className="mb-8">
-                                                    <p className="text-slate-500 text-sm mb-2 font-medium">Total a pagar estimado</p>
-                                                    <p className="text-5xl font-black text-slate-900">$42.00 <span className="text-2xl text-slate-500">USD</span></p>
-                                                </div>
 
-                                                <button onClick={() => alert("Redirigiendo a Pasarela Bancaria...")} className="group relative w-full border-2 border-slate-200 hover:border-cyan-400 hover:shadow-xl hover:shadow-cyan-500/10 rounded-2xl p-6 flex items-center gap-4 transition-all bg-white mb-6">
-                                                    <div className="w-16 h-16 bg-slate-50 rounded-xl flex items-center justify-center shrink-0">
-                                                        {/* PSE Icon Placeholder */}
-                                                        <div className="w-12 h-12 rounded-full border-4 border-slate-800 relative flex items-center justify-center">
-                                                            <div className="text-xs font-black">PSE</div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="text-left">
-                                                        <p className="font-black text-slate-900 text-lg">Débito Bancario PSE</p>
-                                                        <p className="text-sm text-slate-500 font-medium">Cuentas de Ahorros y Corriente</p>
-                                                    </div>
-                                                    <div className="ml-auto text-cyan-500 opacity-0 group-hover:opacity-100 transition">
-                                                        <ArrowRight size={24} />
-                                                    </div>
-                                                </button>
-
-                                                <button onClick={() => setPseStep('input')} className="text-slate-600 hover:text-slate-900 text-sm font-bold underline decoration-slate-300 hover:decoration-slate-900 underline-offset-4">
-                                                    Cancelar
-                                                </button>
+                                            {/* Comentarios Adicionales */}
+                                            <div>
+                                                <label className="block text-sm font-bold text-slate-800 mb-3">Comentarios Adicionales</label>
+                                                <textarea
+                                                    rows="4"
+                                                    className="w-full px-5 py-4 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition text-lg resize-none"
+                                                    placeholder="Cuéntanos más sobre tus necesidades..."
+                                                ></textarea>
                                             </div>
-                                        )}
+
+                                            {/* Submit Button */}
+                                            <button
+                                                type="submit"
+                                                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-5 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:scale-[1.02]"
+                                            >
+                                                Enviar Solicitud <ArrowRight size={20} />
+                                            </button>
+
+                                            <p className="text-center text-xs text-slate-500 mt-4">
+                                                Al enviar este formulario aceptas nuestros términos y condiciones. Te contactaremos en menos de 24 horas.
+                                            </p>
+                                        </form>
                                     </div>
+
                                     <div className="bg-slate-50 p-5 text-center border-t-2 border-slate-100">
                                         <div className="flex items-center justify-center gap-2 text-slate-500 text-sm font-semibold">
-                                            <Shield size={16} /> Transacción encriptada con SSL de 256-bits
+                                            <Shield size={16} /> Tus datos están protegidos y no serán compartidos con terceros
                                         </div>
                                     </div>
                                 </div>
